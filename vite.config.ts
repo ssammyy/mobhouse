@@ -21,7 +21,15 @@ export default defineConfig({
       },
       output: {
         manualChunks: undefined,
-        assetFileNames: 'assets/[name].[hash][extname]',
+        assetFileNames: (assetInfo) => {
+          if (!assetInfo.name) return 'assets/[name].[hash][extname]'
+          const info = assetInfo.name.split('.')
+          const ext = info[info.length - 1]
+          if (/\.(css)$/.test(assetInfo.name)) {
+            return `assets/[name].[hash].${ext}`
+          }
+          return `assets/[name].[hash].${ext}`
+        },
         chunkFileNames: 'assets/[name].[hash].js',
         entryFileNames: 'assets/[name].[hash].js',
       },
