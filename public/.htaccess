@@ -1,0 +1,22 @@
+# Set correct MIME types
+AddType application/javascript .js
+AddType application/javascript .mjs
+AddType text/css .css
+AddType image/svg+xml .svg
+AddType application/json .json
+
+# Enable CORS
+Header set Access-Control-Allow-Origin "*"
+
+# Cache control
+<FilesMatch "\.(js|css|svg|json)$">
+    Header set Cache-Control "public, max-age=31536000"
+</FilesMatch>
+
+# Redirect all requests to index.html
+RewriteEngine On
+RewriteBase /mobhouse/
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /mobhouse/index.html [L] 
