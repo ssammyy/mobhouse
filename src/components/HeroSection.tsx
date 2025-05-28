@@ -41,7 +41,7 @@ const HeroSection = ({ onGetTicketsClick }: HeroSectionProps) => {
     useEffect(() => {
         const interval = setInterval(() => {
             setIsMob(prev => !prev);
-        }, 4000); // Switch every 4 seconds
+        }, 4000);
         return () => clearInterval(interval);
     }, []);
 
@@ -68,7 +68,7 @@ const HeroSection = ({ onGetTicketsClick }: HeroSectionProps) => {
     const dynamicText = isMob ? "Mob" : "Vibe";
 
     return (
-        <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-black via-gray-900 to-black">
+        <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-black via-gray-900 to-black px-4 sm:px-6">
             <motion.div className="absolute inset-0" style={{ y: backgroundY }}>
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-black to-blue-900/30"></div>
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(138,43,226,0.1),transparent_50%)]"></div>
@@ -80,7 +80,7 @@ const HeroSection = ({ onGetTicketsClick }: HeroSectionProps) => {
                     {[...Array(6)].map((_, i) => (
                         <motion.div
                             key={`orb-${i}`}
-                            className="absolute w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/50 to-blue-500/50 backdrop-blur-md"
+                            className="absolute w-8 sm:w-16 h-8 sm:h-16 rounded-full bg-gradient-to-br from-purple-500/50 to-blue-500/50 backdrop-blur-md"
                             style={{
                                 left: `${10 + (i % 3) * 30}%`,
                                 top: `${20 + Math.floor(i / 3) * 30}%`,
@@ -98,7 +98,7 @@ const HeroSection = ({ onGetTicketsClick }: HeroSectionProps) => {
                     {[...Array(4)].map((_, i) => (
                         <motion.div
                             key={`light-${i}`}
-                            className="absolute w-4 h-4 rounded-full bg-red-400/60"
+                            className="absolute w-3 sm:w-4 h-3 sm:h-4 rounded-full bg-red-400/60"
                             style={{
                                 left: `${15 + (i % 2) * 70}%`,
                                 top: `${30 + Math.floor(i / 2) * 30}%`,
@@ -117,28 +117,30 @@ const HeroSection = ({ onGetTicketsClick }: HeroSectionProps) => {
                 </div>
             </motion.div>
 
-            <motion.div className="relative z-10 text-center max-w-6xl mx-auto px-4" style={{ opacity: contentOpacity, scale: contentScale }}>
-                <motion.div className="mb-8" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2 }}>
-                    <motion.div className="flex items-center justify-center space-x-1" style={{ y: titleY, opacity: titleOpacity }}>
-                        {[...staticText].map((char, index) => (
-                            <motion.span
-                                key={`static-${index}`}
-                                className="text-6xl md:text-8xl font-bold tracking-widest mix-blend-difference font-cinzel"
-                                style={{
-                                    color: 'white',
-                                    backgroundImage: `url(/path/to/image${index}.jpg)`,
-                                    backgroundSize: 'cover',
-                                    backgroundPosition: 'center',
-                                    display: 'inline-block',
-                                    padding: '0 5px',
-                                }}
-                                variants={letterVariants}
-                                initial="initial"
-                                whileHover="hover"
-                            >
-                                {char}
-                            </motion.span>
-                        ))}
+            <motion.div className="relative z-10 text-center max-w-6xl mx-auto px-4 py-12 sm:py-0" style={{ opacity: contentOpacity, scale: contentScale }}>
+                <motion.div className="mb-4 sm:mb-8" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2 }}>
+                    <motion.div className="flex flex-col items-center justify-center space-y-2 sm:space-y-4" style={{ y: titleY, opacity: titleOpacity }}>
+                        <motion.div className="flex items-center justify-center space-x-1">
+                            {[...staticText].map((char, index) => (
+                                <motion.span
+                                    key={`static-${index}`}
+                                    className="text-4xl sm:text-6xl md:text-8xl font-bold tracking-widest mix-blend-difference font-cinzel"
+                                    style={{
+                                        color: 'white',
+                                        backgroundImage: `url(/path/to/image${index}.jpg)`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center',
+                                        display: 'inline-block',
+                                        padding: '0 2px sm:0 5px',
+                                    }}
+                                    variants={letterVariants}
+                                    initial="initial"
+                                    whileHover="hover"
+                                >
+                                    {char}
+                                </motion.span>
+                            ))}
+                        </motion.div>
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={dynamicText}
@@ -148,13 +150,13 @@ const HeroSection = ({ onGetTicketsClick }: HeroSectionProps) => {
                                 {[...dynamicText].map((char, index) => (
                                     <motion.span
                                         key={`dynamic-${index}-${char}`}
-                                        className="text-6xl md:text-8xl font-bold tracking-widest mix-blend-difference font-cinzel inline-block relative"
+                                        className="text-4xl sm:text-6xl md:text-8xl font-bold tracking-widest mix-blend-difference font-cinzel inline-block relative"
                                         style={{
                                             color: 'white',
                                             backgroundImage: `url(/path/to/image${index + staticText.length}.jpg)`,
                                             backgroundSize: 'cover',
                                             backgroundPosition: 'center',
-                                            padding: '0 5px',
+                                            padding: '0 2px sm:0 5px',
                                         }}
                                         variants={flipVariants}
                                         initial="hidden"
@@ -166,7 +168,7 @@ const HeroSection = ({ onGetTicketsClick }: HeroSectionProps) => {
                                     >
                                         {char}
                                         <motion.div
-                                            className="absolute -bottom-4 left-0 w-full h-2 bg-gradient-to-r from-purple-500 to-blue-500 blur-md"
+                                            className="absolute -bottom-2 sm:-bottom-4 left-0 w-full h-1 sm:h-2 bg-gradient-to-r from-purple-500 to-blue-500 blur-md"
                                             animate={{ width: ['0%', '100%', '0%'] }}
                                             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }}
                                         />
@@ -175,24 +177,24 @@ const HeroSection = ({ onGetTicketsClick }: HeroSectionProps) => {
                             </motion.div>
                         </AnimatePresence>
                     </motion.div>
-                    <motion.h2 className="text-4xl md:text-6xl font-thin text-blue-300 mb-8 tracking-[0.2em]" style={{ y: subtitleY, opacity: subtitleOpacity }}>
+                    <motion.h2 className="text-2xl sm:text-4xl md:text-6xl font-thin text-blue-300 mb-4 sm:mb-8 tracking-[0.2em]" style={{ y: subtitleY, opacity: subtitleOpacity }}>
                         DJS
                     </motion.h2>
                 </motion.div>
 
                 <motion.p
-                    className="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed font-light"
+                    className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-6 sm:mb-10 max-w-3xl mx-auto leading-relaxed font-light px-4"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.7 }}
                 >
                     Experience the ultimate
-                    <span className="text-purple-400 font-semibold mx-2">Afro House, Amapiano & Tribal House</span>
+                    <span className="text-purple-400 font-semibold mx-1 sm:mx-2">Afro House, Amapiano & Tribal House</span>
                     vibes at our exclusive rooftop and outdoor live music DJ sets
                 </motion.p>
 
                 <motion.div
-                    className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12"
+                    className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-8 sm:mb-12"
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.9 }}
@@ -201,7 +203,7 @@ const HeroSection = ({ onGetTicketsClick }: HeroSectionProps) => {
                         <Button
                             size="lg"
                             onClick={onGetTicketsClick}
-                            className="bg-gradient-to-r from-purple-500 to-blue-500 text-black hover:from-purple-600 hover:to-blue-600 px-10 py-6 text-xl font-bold transition-all duration-300 border-2 border-purple-400/50 shadow-lg shadow-purple-500/25"
+                            className="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-blue-500 text-black hover:from-purple-600 hover:to-blue-600 px-6 sm:px-10 py-4 sm:py-6 text-lg sm:text-xl font-bold transition-all duration-300 border-2 border-purple-400/50 shadow-lg shadow-purple-500/25"
                         >
                             GET TICKETS
                         </Button>
@@ -211,7 +213,7 @@ const HeroSection = ({ onGetTicketsClick }: HeroSectionProps) => {
                             variant="outline"
                             size="lg"
                             onClick={() => document.getElementById('mixes')?.scrollIntoView({ behavior: 'smooth' })}
-                            className="border-2 border-purple-400/50 text-purple-400 hover:bg-purple-500 hover:text-black px-10 py-6 text-xl font-semibold transition-all duration-300 backdrop-blur-sm"
+                            className="w-full sm:w-auto border-2 border-purple-400/50 text-purple-400 hover:bg-purple-500 hover:text-black px-6 sm:px-10 py-4 sm:py-6 text-lg sm:text-xl font-semibold transition-all duration-300 backdrop-blur-sm"
                         >
                             Book Us Now
                         </Button>
@@ -219,7 +221,7 @@ const HeroSection = ({ onGetTicketsClick }: HeroSectionProps) => {
                 </motion.div>
 
                 <motion.div
-                    className="flex flex-wrap justify-center gap-4"
+                    className="flex flex-wrap justify-center gap-2 sm:gap-4"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 1.1 }}
@@ -227,7 +229,7 @@ const HeroSection = ({ onGetTicketsClick }: HeroSectionProps) => {
                     {['AFRO HOUSE', 'AMAPIANO', 'TRIBAL HOUSE'].map((genre, index) => (
                         <motion.span
                             key={genre}
-                            className="px-6 py-3 border-2 border-purple-400/30 rounded-full text-sm font-bold text-purple-300 backdrop-blur-sm bg-black/20"
+                            className="px-4 sm:px-6 py-2 sm:py-3 border-2 border-purple-400/30 rounded-full text-xs sm:text-sm font-bold text-purple-300 backdrop-blur-sm bg-black/20"
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
@@ -240,14 +242,14 @@ const HeroSection = ({ onGetTicketsClick }: HeroSectionProps) => {
             </motion.div>
 
             <motion.div
-                className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+                className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2"
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
                 style={{ opacity: contentOpacity }}
             >
-                <div className="w-8 h-12 border-2 border-purple-400/50 rounded-full flex justify-center backdrop-blur-sm">
+                <div className="w-6 sm:w-8 h-10 sm:h-12 border-2 border-purple-400/50 rounded-full flex justify-center backdrop-blur-sm">
                     <motion.div
-                        className="w-2 h-4 bg-purple-400 rounded-full mt-2"
+                        className="w-1.5 sm:w-2 h-3 sm:h-4 bg-purple-400 rounded-full mt-2"
                         animate={{ y: [0, 8, 0] }}
                         transition={{ duration: 8, repeat: Infinity }}
                     />
