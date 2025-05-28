@@ -29,6 +29,9 @@ jobs:
         env:
           NODE_ENV: production
 
+      - name: Copy _headers
+        run: cp _headers dist/_headers
+
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
